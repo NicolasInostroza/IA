@@ -26,7 +26,7 @@ plt.show()
 
 theta0 = 0
 theta1 = 0
-alpha = 0.00005
+alpha = 0.01
 num_iters = 1500
 
 # Lo siguiente es calcular la función de costo

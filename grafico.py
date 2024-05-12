@@ -64,7 +64,6 @@ def GradienteDescendente(x, y, theta, alpha, num_iters):
 
         ax.set_xlim(2, 24)
         ax.set_ylim(-4,25)
-        ax2.set_ylim(0,10)
 
         if(iter % 10 == 0):
 

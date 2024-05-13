@@ -58,9 +58,9 @@ def GradienteDescendente(x, y, theta, alpha, num_iters):
         theta1 = theta[1] - alpha * (1/m) * np.sum((x.dot(theta) - y) * x[:, 1])
         
         theta = np.array([theta0, theta1])
-        historial_theta.append(theta.copy())
+        historial_theta.append(theta.copy()) #Guarda una copia del vector theta
         
-        J_historial[iter] = funcioncosto(x, y, theta)
+        J_historial[iter] = funcioncosto(x, y, theta) #Calcula el valor de costo para cada Iteracion
 
         ax.set_xlim(2, 24)
         ax.set_ylim(-4,25)
@@ -77,14 +77,14 @@ def GradienteDescendente(x, y, theta, alpha, num_iters):
             ax.grid(True)
             ax.legend()
 
-            #divergencia
+            #Funcion costo
 
-            divergencia_historia.append(J_historial[iter])
+            divergencia_historia.append(J_historial[iter]) #Guarda valor actual de funcion de costo en un arreglo
             ax2.set_xlabel('Iteraciones')
             ax2.set_ylabel('Costo J')
             ax2.set_title('Funcion de costo')
             ax2.clear()
-            ax2.plot(range(len(divergencia_historia)), divergencia_historia, color='b')
+            ax2.plot(range(len(divergencia_historia)), divergencia_historia, color='b') #secuencia de longitud en funcion de divergencia_historia
             ax2.grid(True)
 
             plt.pause(0.00001)
@@ -140,8 +140,8 @@ fig, ax = plt.subplots()
 plt.scatter(x[:, 1], y, marker='x', color='red', label='Datos de entrenamiento')
 plt.xlim(2, 24)
 ax.set_ylim(-4, 25)
-plt.scatter([3.5,7], [beneficio_35k,beneficio_70k], marker='x', color='green', label='Predicción de valores')
-plt.plot([3.5,7], [beneficio_35k,beneficio_70k], color='blue')
+plt.scatter([3.5,7], [beneficio_35k,beneficio_70k], marker='x', color='green', label='Predicción de valores') #Gráfica punto cartesiano
+plt.plot([3.5,7], [beneficio_35k,beneficio_70k], color='blue') 
 ax.axvline(x = personas[0], ymin = 0, ymax = (beneficio_35k + 3)/25, color = 'green', linestyle = '--')
 ax.axvline(x = personas[1], ymin = 0, ymax = (beneficio_70k + 3)/25, color = 'green', linestyle = '--')
 ax.axhline(y = beneficio_35k, xmin = 0, xmax = (personas[0] - 2)/24, color = 'green', linestyle = '--')
@@ -154,18 +154,19 @@ plt.grid(True)
 plt.title("Gráfico de Dispersión donde se indica el beneficio para 35.000 y 70.000 habitantes")
 plt.xlabel("Población de la ciudad en 10.000s")
 plt.ylabel("Beneficios en $10.000s")
-plt.plot(x[:, 1], x.dot(theta_final), color='blue', label='Regresión lineal obtenida')
+plt.plot(x[:, 1], x.dot(theta_final), color='blue', label='Regresión lineal obtenida') #Regresion lineal obtenida
 plt.legend()
 plt.show()
 
 #----------------------------------------------------------------- Gráfico 3D -----------------------------------------------------------------------------------#
 
-theta0_vals = np.linspace(-10, 10, 100)
+theta0_vals = np.linspace(-10, 10, 100) #Genera arreglo de numeros espaciados
 theta1_vals = np.linspace(-1, 4, 100)
-theta0_grid, theta1_grid = np.meshgrid(theta0_vals, theta1_vals)
+theta0_grid, theta1_grid = np.meshgrid(theta0_vals, theta1_vals) #Crea cuadriculas de coordenadas
 
 # Calcula la función de costo J para cada combinación de theta0 y theta1
-J_vals = np.zeros_like(theta0_grid)
+
+J_vals = np.zeros_like(theta0_grid) #Crea matriz de ceros
 for i in range(len(theta0_vals)):
     for j in range(len(theta1_vals)):
         theta = np.array([theta0_grid[i, j], theta1_grid[i, j]])
@@ -184,8 +185,8 @@ trayectoria, = ax.plot([], [], [], c='red', marker='o')
 
 def update_3d(frame):
     theta_array = np.array(historial_theta)
-    trayectoria.set_data(theta_array[:frame+1, 0], theta_array[:frame+1, 1])
-    trayectoria.set_3d_properties(J_historial[:frame+1])
+    trayectoria.set_data(theta_array[:frame+1, 0], theta_array[:frame+1, 1]) #eje X e Y
+    trayectoria.set_3d_properties(J_historial[:frame+1]) #eje Z
     return trayectoria,
 
 # Se crea la animación utilizando la función FuncAnimation de matplotlib.
@@ -218,7 +219,7 @@ plt.show()
 
 #--------------------------------------------------------------------- Ecuación Normal ---------------------------------------------------------------------------#
 
-theta_normal = np.linalg.inv(x.T.dot(x)).dot(x.T).dot(y)
+theta_normal = np.linalg.inv(x.T.dot(x)).dot(x.T).dot(y) #Producto punto
 
 print("\n##################################################################################################################") 
 print("\nTheta calculado por la ecuación normal:", theta_normal)
